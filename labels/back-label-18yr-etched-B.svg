@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  NEW ALCHEMY DISTILLING — Apple Brandy "18 YEAR" BACK LABEL (Higgsfield etching B)
+  Die shape: 2.8" x 3.9" tapered (tumbler) label.
+  Layout: text on the LEFT, etched landscape illustration on the RIGHT.
+
+  Units: viewBox is in 1/100 inch (280 x 390 = 2.8" x 3.9").
+
+  FONTS USED (all free Google Fonts, live/real text — chosen to match the originals):
+    - "Libre Caslon Display" -> display title (high-contrast Caslon)      ~ matches "APPLE BRANDY / 18 YEAR"
+    - "Libre Caslon Text"    -> engraved Caslon caps (distillery, labels) ~ matches the inscriptional caps
+    - "EB Garamond"          -> old-style serif body copy                 ~ matches the running text
+  See labels/README.md for the full font map and substitutions.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="2.8in" height="3.9in" viewBox="0 0 280 390" preserveAspectRatio="xMidYMid meet">
+
+  <defs>
+    <style type="text/css"><![CDATA[
+      @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap');
+
+      text { fill: #2f2516; }
+      .brand   { font-family: 'Libre Caslon Text', 'Times New Roman', serif; }
+      .display { font-family: 'Libre Caslon Display', Georgia, serif; }
+      .body    { font-family: 'EB Garamond', Georgia, serif; }
+      .ink     { fill: none; stroke: #2f2516; }
+    ]]></style>
+
+    <!-- Tapered die line -->
+    <path id="die" d="M0 0 H280 L268 390 H12 Z"/>
+    <clipPath id="clip"><use xlink:href="#die"/></clipPath>
+  </defs>
+
+  <!-- ===== PAPER ===== -->
+  <use xlink:href="#die" fill="#efe4c4"/>
+
+  <g clip-path="url(#clip)">
+    <!-- subtle aged tint at edges -->
+    <use xlink:href="#die" fill="none" stroke="#d6c49a" stroke-width="10" opacity="0.45"/>
+  </g>
+
+  <!-- ===== ORNAMENTAL BORDER (double rule + corner accents, follows the taper) ===== -->
+  <path class="ink" stroke-width="2.4"
+        d="M8 8 H272 L261.5 382 H18.5 Z"/>
+  <path class="ink" stroke-width="0.9"
+        d="M12.5 12.5 H267.5 L257.3 377.5 H22.7 Z"/>
+  <!-- corner brackets -->
+  <g class="ink" stroke-width="1" stroke-linecap="round">
+    <path d="M12 23 L12 12 L23 12"/>
+    <path d="M268 23 L268 12 L257 12"/>
+    <path d="M22.7 367 L22.7 378 L33.7 378"/>
+    <path d="M257.3 367 L257.3 378 L246.3 378"/>
+  </g>
+  <g fill="#2f2516">
+    <path d="M12 9.6 l2 2.4 -2 2.4 -2 -2.4 Z"/>
+    <path d="M268 9.6 l2 2.4 -2 2.4 -2 -2.4 Z"/>
+    <path d="M22.7 375.1 l2 2.4 -2 2.4 -2 -2.4 Z"/>
+    <path d="M257.3 375.1 l2 2.4 -2 2.4 -2 -2.4 Z"/>
+  </g>
+
+  <!-- ===================== HEADER ===================== -->
+  <text class="brand" x="140" y="26" text-anchor="middle"
+        font-size="9.5" font-weight="600" letter-spacing="1.6">NEW ALCHEMY DISTILLING</text>
+  <text class="body" x="140" y="34.5" text-anchor="middle"
+        font-size="6" letter-spacing="2.2">EL DORADO HILLS, CALIFORNIA</text>
+
+  <!-- ornamental rule -->
+  <g class="ink" stroke-width="0.9">
+    <line x1="40" y1="40" x2="132" y2="40"/>
+    <line x1="148" y1="40" x2="240" y2="40"/>
+  </g>
+  <path d="M140 37 l3 3 -3 3 -3 -3 Z" fill="#2f2516"/>
+
+  <!-- ===================== TITLE BLOCK ===================== -->
+  <text class="display" x="140" y="58" text-anchor="middle"
+        font-size="20" font-weight="900" letter-spacing="1">APPLE BRANDY</text>
+
+  <text class="display" x="140" y="82" text-anchor="middle"
+        font-size="22" font-weight="700" letter-spacing="3">18 YEAR</text>
+
+  <g class="ink" stroke-width="0.9">
+    <line x1="56" y1="88" x2="104" y2="88"/>
+    <line x1="176" y1="88" x2="224" y2="88"/>
+  </g>
+  <path d="M140 85.5 l2.4 2.5 -2.4 2.5 -2.4 -2.5 Z" fill="#2f2516"/>
+  <text class="brand" x="140" y="96.5" text-anchor="middle"
+        font-size="6.4" font-weight="400" letter-spacing="1.4">CAVE AGED IN FRENCH OAK BARRELS</text>
+
+  <!-- ===================== BODY (LEFT) + ETCHING (RIGHT) ===================== -->
+
+  <!-- left column heading -->
+  <g class="ink" stroke-width="0.8">
+    <line x1="24" y1="106" x2="33" y2="106"/>
+    <line x1="119" y1="106" x2="128" y2="106"/>
+  </g>
+  <text class="brand" x="76" y="108.6" text-anchor="middle"
+        font-size="6.6" font-weight="600" letter-spacing="1">FROM THE FOOTHILLS</text>
+
+  <!-- body copy, manually wrapped (~36 chars/line) -->
+  <text class="body" x="26" y="120" font-size="6.7" letter-spacing="0.1">
+    <tspan x="26" dy="0">This is your opportunity to try what</tspan>
+    <tspan x="26" dy="8.4">is almost certainly the oldest and we</tspan>
+    <tspan x="26" dy="8.4">believe some of the best historical</tspan>
+    <tspan x="26" dy="8.4">examples of California apple brandy</tspan>
+    <tspan x="26" dy="8.4">on the market. Limited to only 1,000</tspan>
+    <tspan x="26" dy="8.4">bottles, it&#8217;s a relic that will never</tspan>
+    <tspan x="26" dy="8.4">be available after these limited lots</tspan>
+    <tspan x="26" dy="8.4">are gone.</tspan>
+
+    <tspan x="26" dy="13.5">Distilled from heritage apples grown</tspan>
+    <tspan x="26" dy="8.4">in the cool elevations of Apple Hill</tspan>
+    <tspan x="26" dy="8.4">and laid down for decades in French</tspan>
+    <tspan x="26" dy="8.4">oak barrels deep within the Sierra</tspan>
+    <tspan x="26" dy="8.4">foothills, this release represents a</tspan>
+    <tspan x="26" dy="8.4">vanishing chapter of California</tspan>
+    <tspan x="26" dy="8.4">distilling history&#8212;crafted with</tspan>
+    <tspan x="26" dy="8.4">patience, tradition, and a deep</tspan>
+    <tspan x="26" dy="8.4">respect for this remarkable place.</tspan>
+  </text>
+
+  <!-- ============ ETCHING (RIGHT) — Higgsfield engraving, linked from CDN ============ -->
+  <!-- NOTE: this <image> is LINKED to Higgsfield's CDN, not embedded. It shows in a
+       browser/Illustrator with internet. For a self-contained, print-ready file, replace
+       the href with a base64 data URI of the downloaded PNG (or embed it in your editor). -->
+  <g transform="translate(158,108)">
+    <rect x="0" y="0" width="98" height="150" rx="2" fill="#f3e9cd"/>
+    <clipPath id="etchClip"><rect x="1.6" y="1.6" width="94.8" height="146.8" rx="1.5"/></clipPath>
+    <image x="1.6" y="1.6" width="94.8" height="146.8" clip-path="url(#etchClip)"
+           preserveAspectRatio="xMidYMid slice"
+           xlink:href="https://d8j0ntlcm91z4.cloudfront.net/user_3F2w0LigdKCgrwdauB9Ebvgco3X/hf_20260617_210119_fa71e1ef-fddb-4a7b-be4e-357404e3d955.png" href="https://d8j0ntlcm91z4.cloudfront.net/user_3F2w0LigdKCgrwdauB9Ebvgco3X/hf_20260617_210119_fa71e1ef-fddb-4a7b-be4e-357404e3d955.png"/>
+    <rect x="0" y="0" width="98" height="150" rx="2" fill="none" stroke="#2f2516" stroke-width="1.8"/>
+    <rect x="3.5" y="3.5" width="91" height="143" rx="1" fill="none" stroke="#2f2516" stroke-width="0.8"/>
+  </g>
+
+  <!-- ===================== FOOTER ===================== -->
+
+  <!-- specs box -->
+  <g class="ink" stroke-width="0.7">
+    <rect x="26" y="296" width="228" height="26"/>
+    <line x1="116" y1="296" x2="116" y2="322"/>
+    <line x1="170" y1="296" x2="170" y2="322"/>
+  </g>
+
+  <!-- col 1 -->
+  <text class="brand" x="30" y="303.5" font-size="4.4" letter-spacing="0.6" fill="#7c6a48">BARRELED IN</text>
+  <text class="display" x="30" y="312" font-size="9" font-weight="700">2008</text>
+  <text class="brand" x="30" y="319.5" font-size="4.8" letter-spacing="0.5">48% ALC/VOL · 96 PROOF</text>
+  <!-- col 2 -->
+  <text class="display" x="143" y="312" text-anchor="middle" font-size="9.5" font-weight="700">750 ML</text>
+  <!-- col 3 -->
+  <text class="brand" x="174" y="303.5" font-size="4.4" letter-spacing="0.6" fill="#7c6a48">BARREL NUMBER</text>
+  <text class="display" x="174" y="312" font-size="9" font-weight="700">C-37</text>
+  <text class="brand" x="174" y="319.5" font-size="4.8" letter-spacing="0.5">BOTTLE No. 142 OF 1,000</text>
+
+  <!-- producer -->
+  <text class="body" x="140" y="331" text-anchor="middle" font-size="4.6" letter-spacing="1.4">PRODUCED AND BOTTLED BY</text>
+  <text class="brand" x="140" y="338.5" text-anchor="middle" font-size="6.6" font-weight="600" letter-spacing="1">NEW ALCHEMY DISTILLING</text>
+  <text class="body" x="140" y="345" text-anchor="middle" font-size="4.6" letter-spacing="1.1">EL DORADO HILLS, CALIFORNIA · PRODUCT OF CALIFORNIA, USA</text>
+
+  <line class="ink" stroke-width="0.4" x1="40" y1="350" x2="240" y2="350"/>
+
+  <!-- government warning -->
+  <text class="body" x="140" y="356.5" text-anchor="middle" font-size="3.7" letter-spacing="0.1">
+    <tspan x="140" dy="0"><tspan font-weight="500">GOVERNMENT WARNING:</tspan> (1) According to the Surgeon General, women should not drink</tspan>
+    <tspan x="140" dy="4.6">alcoholic beverages during pregnancy because of the risk of birth defects. (2) Consumption</tspan>
+    <tspan x="140" dy="4.6">of alcoholic beverages impairs your ability to drive a car or operate machinery, and may</tspan>
+    <tspan x="140" dy="4.6">cause health problems.</tspan>
+  </text>
+
+  <!-- DSP / lot -->
+  <text class="brand" x="28" y="374" font-size="4" letter-spacing="0.5" fill="#7c6a48">DSP-CA-20107</text>
+  <text class="brand" x="252" y="374" text-anchor="end" font-size="4" letter-spacing="0.5" fill="#7c6a48">PACKAGED IN APPLE HILL</text>
+
+</svg>
