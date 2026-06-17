@@ -20,15 +20,22 @@ re-laid out with **text on the left** and an **etched landscape illustration on 
 
 ## Fonts — swap these for your licensed/active families
 
-Everything is set in **three free Google Fonts** chosen to match the originals. They are
-referenced by name (and `@import`-ed for browser preview), so you can drop in replacements
-by editing the `.brand` / `.display` / `.body` rules in each SVG's `<style>` block.
+Everything is set in **three free Google Fonts**, chosen to match the original photos as
+closely as possible. The originals read as a classic **Caslon** family (warm, slightly
+rustic American old-style serif — *not* a cold modern Didone), so the type system is built
+around Caslon. All text is **live/real** (not outlined) and referenced by name, so you can
+drop in your licensed equivalents by editing the `.brand` / `.display` / `.body` rules in
+each SVG's `<style>` block.
 
-| Role in label | Used here (Google Font) | Style it imitates | Good active substitutes |
+| Role in label | Used here (free Google Font) | Why it matches the originals | Closest paid/active substitutes |
 |---|---|---|---|
-| Display titles — `APPLE BRANDY`, `18/23 YEAR`, the big numerals (`2008`, `750 ML`, `C-37`) | **Playfair Display** (900/700) | High-contrast didone/transitional serif | Didot, Caslon Black, GT Super Display, Canela |
-| Engraved roman caps — `NEW ALCHEMY DISTILLING`, section + spec labels | **Cinzel** (600/400) | Inscriptional / engraved Trajan-style caps | Trajan Pro, Optima, Copperplate, Cormorant SC |
-| Body copy & fine print — description, producer line, government warning | **EB Garamond** (400/italic) | Old-style Garalde serif | Adobe Garamond, Sabon, Cormorant Garamond, Crimson Pro |
+| Display titles — `APPLE BRANDY`, `18/23 YEAR`, big numerals (`2008`, `750 ML`, `C-37`) | **Libre Caslon Display** | High-contrast Caslon display cut — matches the elegant bracketed serifs of the title | Adobe Caslon, ITC Caslon 224, Big Caslon, Canela |
+| Engraved roman caps — `NEW ALCHEMY DISTILLING`, section + spec labels | **Libre Caslon Text** (caps, letter-spaced) | Same Caslon family in a cleaner text weight; matches the refined inscriptional caps | Adobe Caslon SC, LTC Caslon, Copperplate |
+| Body copy & fine print — description, producer line, government warning | **EB Garamond** | Old-style Garalde serif, period-correct and legible at tiny sizes | Adobe Garamond, Sabon, Caslon Pro Text |
+
+> The originals are most likely a commercial **Caslon** (e.g. Adobe Caslon / Caslon 540).
+> Libre Caslon is the closest free, web-active match. If you license Adobe Caslon, swap the
+> `.display` and `.brand` families to it and the labels will track the source almost exactly.
 
 ### CSS hooks
 In each SVG `<style>` block:
