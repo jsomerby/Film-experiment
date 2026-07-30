@@ -1,0 +1,30 @@
+{
+  "text": {
+    "nav.brand": "Wildhand",
+    "hero.eyebrow": "Small-Batch · Made by Hand",
+    "hero.title": "From Barrel<br>to Botanical",
+    "hero.tagline": "Slow-poured whiskey, hand-ground juniper, field-picked chamomile. Spirits made the patient way.",
+    "hero.cta": "Discover the Craft",
+    "hero.cue": "Scroll",
+    "craft.lead": "The Craft",
+    "craft.heading": "Nothing rushed. Nothing hidden.",
+    "craft.body": "Every bottle starts the same way it has for generations — with hands, time, and raw ingredients you can name. We pour from the barrel by hand, grind our juniper one crank at a time, and pick our botanicals at first light. Replace this copy with your own brand story.",
+    "process.lead": "The Process",
+    "process.heading": "Three steps, all by hand",
+    "process.card1.title": "Slow-Poured Whiskey",
+    "process.card1.body": "Drawn straight from the bunghole of a charred oak barrel and decanted by hand — never hurried.",
+    "process.card2.title": "Hand-Ground Juniper",
+    "process.card2.body": "Wild juniper berries crushed one crank at a time, releasing oils a machine would burn off.",
+    "process.card3.title": "Field-Picked Botanicals",
+    "process.card3.body": "Chamomile and wild blooms gathered by hand at golden hour, basket by basket.",
+    "story.lead": "Our Story",
+    "story.heading": "Rugged hands, honest spirits",
+    "story.body": "Waxed canvas, weathered wood, and a refusal to cut corners. This is where you tell people who you are and why it matters. Keep it short, keep it true.",
+    "closing.heading": "Taste what patience makes.",
+    "closing.body": "Find Wildhand at your local bottle shop, or order direct.",
+    "closing.cta": "Shop the Collection"
+  },
+  "images": {
+    "hero.poster": "assets/img/hero-poster.webp"
+  }
+}

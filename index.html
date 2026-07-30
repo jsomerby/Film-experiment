@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wildhand Distillery — Small-Batch Gin & Whiskey, Made by Hand</title>
+  <meta name="description" content="Small-batch spirits crafted by hand from barrel to botanical — hand-ground juniper, field-picked chamomile, slow-poured whiskey." />
+
+  <!-- The poster is the LCP element, not the video. Preload it so first paint is instant. -->
+  <link rel="preload" as="image" href="assets/img/hero-poster.webp" fetchpriority="high" />
+
+  <style>
+    :root{
+      --ink:#f4ead7; --ink-dim:#cdbfa6;
+      --bg:#140c06; --bg-2:#1d130a; --amber:#c8862f; --amber-2:#e0a24a;
+      --serif: ui-serif, Georgia, "Times New Roman", serif;
+      --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    *{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;}
+    h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:.01em;margin:0;}
+    a{color:inherit;}
+    .wrap{max-width:1080px;margin:0 auto;padding:0 1.25rem;}
+
+    /* ---------- Top nav ---------- */
+    .nav{position:absolute;top:0;left:0;right:0;z-index:3;}
+    .nav__inner{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;}
+    .nav__brand{font-family:var(--serif);font-size:1.25rem;letter-spacing:.18em;text-transform:uppercase;}
+    .nav__links{display:flex;gap:1.5rem;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;}
+    .nav__links a{text-decoration:none;opacity:.85;}
+    .nav__links a:hover{opacity:1;}
+    @media (max-width:640px){ .nav__links{display:none;} }
+
+    /* ---------- Hero ---------- */
+    .hero{position:relative;width:100%;height:100svh;min-height:100vh;overflow:hidden;background:var(--bg-2);}
+    .hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;}
+    .hero__scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,12,6,.35),rgba(20,12,6,.1) 45%,rgba(20,12,6,.7));}
+    .hero__content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 1.25rem;}
+    .hero__eyebrow{font-size:.8rem;letter-spacing:.32em;text-transform:uppercase;color:var(--amber-2);margin-bottom:1rem;}
+    .hero h1{font-size:clamp(2.4rem,7vw,5.5rem);line-height:1.02;}
+    .hero p{margin-top:1.25rem;font-size:clamp(1rem,2.2vw,1.35rem);color:var(--ink-dim);max-width:34ch;}
+    .btn{display:inline-block;margin-top:2rem;padding:.85rem 2rem;border:1px solid var(--amber-2);border-radius:2px;
+         text-decoration:none;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;transition:background .2s,color .2s;}
+    .btn:hover{background:var(--amber-2);color:var(--bg);}
+    .hero__cue{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--ink-dim);z-index:2;}
+
+    /* ---------- Generic section ---------- */
+    section.band{padding:clamp(4rem,10vw,8rem) 0;}
+    .lead{font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:var(--amber);}
+    .band h2{font-size:clamp(1.8rem,4.5vw,3rem);margin:.75rem 0 1rem;}
+    .band p.body{color:var(--ink-dim);max-width:58ch;}
+
+    /* ---------- Process trio ---------- */
+    .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
+    @media (max-width:760px){ .trio{grid-template-columns:1fr;} }
+    .card{background:var(--bg-2);border:1px solid rgba(224,162,74,.18);border-radius:4px;padding:2rem 1.5rem;}
+    .card .num{font-family:var(--serif);font-size:2rem;color:var(--amber);}
+    .card h3{margin:.5rem 0;font-size:1.3rem;}
+    .card p{color:var(--ink-dim);font-size:.95rem;margin:0;}
+
+    /* ---------- Closing ---------- */
+    .closing{text-align:center;background:radial-gradient(120% 100% at 50% 0%,var(--bg-2),var(--bg));}
+    .closing h2{font-size:clamp(2rem,5vw,3.4rem);}
+    footer{border-top:1px solid rgba(224,162,74,.15);padding:2.5rem 0;text-align:center;color:var(--ink-dim);font-size:.85rem;}
+
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto;}
+      .hero__video{display:none;}
+      .hero{background:url("assets/img/hero-poster.webp") center/cover no-repeat;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <span class="nav__brand" data-edit="nav.brand">Wildhand</span>
+      <div class="nav__links">
+        <a href="#craft">Craft</a>
+        <a href="#process">Process</a>
+        <a href="#story">Story</a>
+        <a href="#find">Find Us</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO (full-screen background video) ===== -->
+  <header class="hero">
+    <video class="hero__video" autoplay muted loop playsinline preload="metadata"
+           poster="assets/img/hero-poster.webp" data-edit-img="hero.poster" aria-hidden="true" tabindex="-1">
+      <!-- Mobile portrait -->
+      <source src="assets/video/hero-mobile.webm" type="video/webm" media="(max-aspect-ratio: 1/1)" />
+      <source src="assets/video/hero-mobile.mp4"  type="video/mp4"  media="(max-aspect-ratio: 1/1)" />
+      <!-- Desktop / landscape -->
+      <source src="assets/video/hero-desktop.webm" type="video/webm" />
+      <source src="assets/video/hero-desktop.mp4"  type="video/mp4" />
+    </video>
+    <div class="hero__scrim"></div>
+    <div class="hero__content">
+      <p class="hero__eyebrow" data-edit="hero.eyebrow">Small-Batch · Made by Hand</p>
+      <h1 data-edit="hero.title">From Barrel<br>to Botanical</h1>
+      <p data-edit="hero.tagline">Slow-poured whiskey, hand-ground juniper, field-picked chamomile. Spirits made the patient way.</p>
+      <a class="btn" href="#craft" data-edit="hero.cta">Discover the Craft</a>
+    </div>
+    <span class="hero__cue" data-edit="hero.cue">Scroll</span>
+  </header>
+
+  <!-- ===== CRAFT ===== -->
+  <section id="craft" class="band">
+    <div class="wrap">
+      <p class="lead" data-edit="craft.lead">The Craft</p>
+      <h2 data-edit="craft.heading">Nothing rushed. Nothing hidden.</h2>
+      <p class="body" data-edit="craft.body">Every bottle starts the same way it has for generations — with hands, time, and raw
+        ingredients you can name. We pour from the barrel by hand, grind our juniper one crank at a time,
+        and pick our botanicals at first light. Replace this copy with your own brand story.</p>
+    </div>
+  </section>
+
+  <!-- ===== PROCESS TRIO (mirrors the hero's three scenes) ===== -->
+  <section id="process" class="band" style="background:var(--bg-2);">
+    <div class="wrap">
+      <p class="lead" data-edit="process.lead">The Process</p>
+      <h2 data-edit="process.heading">Three steps, all by hand</h2>
+      <div class="trio">
+        <article class="card">
+          <div class="num">01</div>
+          <h3 data-edit="process.card1.title">Slow-Poured Whiskey</h3>
+          <p data-edit="process.card1.body">Drawn straight from the bunghole of a charred oak barrel and decanted by hand — never hurried.</p>
+        </article>
+        <article class="card">
+          <div class="num">02</div>
+          <h3 data-edit="process.card2.title">Hand-Ground Juniper</h3>
+          <p data-edit="process.card2.body">Wild juniper berries crushed one crank at a time, releasing oils a machine would burn off.</p>
+        </article>
+        <article class="card">
+          <div class="num">03</div>
+          <h3 data-edit="process.card3.title">Field-Picked Botanicals</h3>
+          <p data-edit="process.card3.body">Chamomile and wild blooms gathered by hand at golden hour, basket by basket.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STORY ===== -->
+  <section id="story" class="band">
+    <div class="wrap">
+      <p class="lead" data-edit="story.lead">Our Story</p>
+      <h2 data-edit="story.heading">Rugged hands, honest spirits</h2>
+      <p class="body" data-edit="story.body">Waxed canvas, weathered wood, and a refusal to cut corners. This is where you tell people
+        who you are and why it matters. Keep it short, keep it true.</p>
+    </div>
+  </section>
+
+  <!-- ===== CLOSING / CTA ===== -->
+  <section id="find" class="band closing">
+    <div class="wrap">
+      <h2 data-edit="closing.heading">Taste what patience makes.</h2>
+      <p class="body" style="margin:1rem auto 0;" data-edit="closing.body">Find Wildhand at your local bottle shop, or order direct.</p>
+      <a class="btn" href="#" data-edit="closing.cta">Shop the Collection</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">© <span id="yr"></span> Wildhand Distillery · Please enjoy responsibly · 21+</div>
+  </footer>
+
+  <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+  <script src="assets/js/hydrate.js"></script>
+</body>
+</html>

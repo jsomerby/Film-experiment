@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wildhand — Edit Site</title>
+  <meta name="robots" content="noindex" />
+  <style>
+    :root{
+      --ink:#f4ead7; --ink-dim:#cdbfa6; --bg:#140c06; --bg-2:#1d130a;
+      --amber:#c8862f; --amber-2:#e0a24a;
+      --serif: ui-serif, Georgia, "Times New Roman", serif;
+      --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    *{box-sizing:border-box;}
+    html,body{height:100%;}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);display:flex;flex-direction:column;}
+
+    /* ---------- Login ---------- */
+    .login{flex:1;display:flex;align-items:center;justify-content:center;padding:1.5rem;}
+    .login__card{background:var(--bg-2);border:1px solid rgba(224,162,74,.25);border-radius:6px;padding:2.5rem 2rem;max-width:360px;width:100%;text-align:center;}
+    .login__card h1{font-family:var(--serif);font-weight:600;font-size:1.5rem;margin:0 0 .25rem;}
+    .login__card p{color:var(--ink-dim);font-size:.9rem;margin:0 0 1.5rem;}
+    .login__card input{width:100%;padding:.7rem .9rem;border-radius:3px;border:1px solid rgba(224,162,74,.35);background:var(--bg);color:var(--ink);font-size:1rem;}
+    .login__card input:focus{outline:2px solid var(--amber-2);border-color:transparent;}
+    .login__err{color:#e07a5f;font-size:.85rem;min-height:1.2em;margin:.6rem 0 0;}
+
+    /* ---------- Toolbar ---------- */
+    .bar{display:none;align-items:center;gap:1rem;padding:.6rem 1rem;background:var(--bg-2);border-bottom:1px solid rgba(224,162,74,.25);}
+    .bar__brand{font-family:var(--serif);letter-spacing:.14em;text-transform:uppercase;font-size:.85rem;}
+    .bar__hint{color:var(--ink-dim);font-size:.8rem;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .bar__status{font-size:.8rem;color:var(--ink-dim);white-space:nowrap;}
+    .bar__status.ok{color:#9fce8f;}
+    .bar__status.err{color:#e07a5f;}
+    .btn{padding:.5rem 1.1rem;border-radius:3px;border:1px solid var(--amber-2);background:transparent;color:var(--ink);
+         font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s;}
+    .btn:hover{background:var(--amber-2);color:var(--bg);}
+    .btn--primary{background:var(--amber-2);color:var(--bg);}
+    .btn--primary:hover{background:var(--amber);}
+    .btn:disabled{opacity:.45;cursor:default;}
+    .btn:disabled:hover{background:transparent;color:var(--ink);}
+    .btn--primary:disabled:hover{background:var(--amber-2);color:var(--bg);}
+
+    /* ---------- Framed page ---------- */
+    .stage{display:none;flex:1;min-height:0;}
+    .stage iframe{width:100%;height:100%;border:0;display:block;}
+    body.authed .login{display:none;}
+    body.authed .bar{display:flex;}
+    body.authed .stage{display:block;}
+  </style>
+</head>
+<body>
+
+  <div class="login">
+    <form class="login__card" id="loginForm">
+      <h1>Wildhand Admin</h1>
+      <p>Enter the admin password to edit the site.</p>
+      <input type="password" id="password" placeholder="Password" autocomplete="current-password" autofocus />
+      <p class="login__err" id="loginErr"></p>
+      <button class="btn btn--primary" type="submit" style="margin-top:.5rem;width:100%;">Sign In</button>
+    </form>
+  </div>
+
+  <div class="bar">
+    <span class="bar__brand">Wildhand · Editing</span>
+    <span class="bar__hint">Click any text to edit it in place. Click the hero image to replace it.</span>
+    <span class="bar__status" id="status">No changes yet</span>
+    <button class="btn" id="discardBtn" disabled>Discard</button>
+    <button class="btn btn--primary" id="saveBtn" disabled>Save &amp; Publish</button>
+  </div>
+
+  <div class="stage">
+    <iframe id="page" title="Site preview (editable)"></iframe>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+      var API = '../api';
+      var token = sessionStorage.getItem('wildhand_admin_token') || '';
+      var frame = document.getElementById('page');
+      var saveBtn = document.getElementById('saveBtn');
+      var discardBtn = document.getElementById('discardBtn');
+      var statusEl = document.getElementById('status');
+
+      function setStatus(msg, cls) {
+        statusEl.textContent = msg;
+        statusEl.className = 'bar__status' + (cls ? ' ' + cls : '');
+      }
+
+      /* ---------- Auth ---------- */
+      document.getElementById('loginForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var pw = document.getElementById('password').value;
+        fetch(API + '/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: pw })
+        }).then(function (r) {
+          if (!r.ok) throw new Error(r.status === 401 ? 'Wrong password.' : 'Login failed (' + r.status + ').');
+          return r.json();
+        }).then(function (data) {
+          token = data.token;
+          sessionStorage.setItem('wildhand_admin_token', token);
+          enter();
+        }).catch(function (err) {
+          document.getElementById('loginErr').textContent =
+            err.message === 'Failed to fetch'
+              ? 'Could not reach the server — run `node server.js` and open the site through it.'
+              : err.message;
+        });
+      });
+
+      function enter() {
+        document.body.classList.add('authed');
+        loadPage();
+      }
+      if (token) enter(); // already signed in this tab
+
+      /* ---------- Frame + editor injection ---------- */
+      function loadPage() {
+        setStatus('Loading page…');
+        frame.src = '../index.html';
+      }
+
+      frame.addEventListener('load', function () {
+        var win = frame.contentWindow;
+        // Wait for content.json hydration so the editor sees the live copy.
+        var ready = (win.__hydrated && typeof win.__hydrated.then === 'function')
+          ? win.__hydrated : Promise.resolve();
+        ready.then(function () {
+          var s = win.document.createElement('script');
+          // Resolve against the admin page, not the framed page.
+          s.src = new URL('editor.js', window.location.href).href;
+          win.document.body.appendChild(s);
+        });
+      });
+
+      window.addEventListener('message', function (e) {
+        if (e.origin !== window.location.origin || !e.data) return;
+        if (e.data.type === 'editor:ready') setStatus('No changes yet');
+        if (e.data.type === 'editor:dirty') {
+          saveBtn.disabled = false;
+          discardBtn.disabled = false;
+          setStatus('Unsaved changes');
+        }
+      });
+
+      discardBtn.addEventListener('click', function () {
+        saveBtn.disabled = true;
+        discardBtn.disabled = true;
+        loadPage();
+      });
+
+      /* ---------- Save ---------- */
+      saveBtn.addEventListener('click', function () {
+        var editor = frame.contentWindow.__editor;
+        if (!editor) return;
+        var edits = editor.collect();
+        saveBtn.disabled = true;
+        setStatus('Saving…');
+
+        // Load the current stored content so we merge rather than clobber
+        // keys this page doesn't know about.
+        fetch('../content/content.json', { cache: 'no-store' })
+          .then(function (r) { return r.ok ? r.json() : { text: {}, images: {} }; })
+          .then(function (content) {
+            content.text = Object.assign({}, content.text, edits.text);
+            content.images = content.images || {};
+
+            var uploads = Object.keys(edits.pendingImages).map(function (key) {
+              var file = edits.pendingImages[key];
+              return fetch(API + '/upload?name=' + encodeURIComponent(file.name), {
+                method: 'POST',
+                headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': file.type || 'application/octet-stream' },
+                body: file
+              }).then(function (r) {
+                if (!r.ok) throw new Error('Image upload failed (' + r.status + ').');
+                return r.json();
+              }).then(function (data) { content.images[key] = data.url; });
+            });
+
+            return Promise.all(uploads).then(function () { return content; });
+          })
+          .then(function (content) {
+            return fetch(API + '/save', {
+              method: 'POST',
+              headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+              body: JSON.stringify(content, null, 2)
+            });
+          })
+          .then(function (r) {
+            if (r.status === 401) {
+              sessionStorage.removeItem('wildhand_admin_token');
+              throw new Error('Session expired — refresh and sign in again.');
+            }
+            if (!r.ok) throw new Error('Save failed (' + r.status + ').');
+            frame.contentWindow.__editor.markSaved();
+            discardBtn.disabled = true;
+            setStatus('Saved — live for all visitors', 'ok');
+          })
+          .catch(function (err) {
+            saveBtn.disabled = false;
+            setStatus(err.message === 'Failed to fetch'
+              ? 'No server — run `node server.js` to enable saving.' : err.message, 'err');
+          });
+      });
+
+      window.addEventListener('beforeunload', function (e) {
+        var editor = frame.contentWindow && frame.contentWindow.__editor;
+        if (editor && editor.isDirty()) { e.preventDefault(); e.returnValue = ''; }
+      });
+    })();
+  </script>
+</body>
+</html>
